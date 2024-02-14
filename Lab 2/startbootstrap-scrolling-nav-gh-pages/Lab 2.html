@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Scrolling Nav - Start Bootstrap Template</title>
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+    <style>
+        code {
+            counter-reset: line;
+            display: block;
+            background-color: #6abebe28;
+            white-space: pre;
+            overflow-x: scroll;
+            overflow-y: scroll;
+            max-width: 100%;
+            min-width: 100px;
+            padding: 0;
+            box-shadow: 5px 5px 10px #888888;
+            transition: box-shadow 0.3s ease-in-out;
+        }
+    </style>
+
+
+    <body id="page-top"  >
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+            <div class="container px-4">
+                <a class="navbar-brand" href="#page-top">Lab2 Bluetooth</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="#about">Objective</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#services">Lab</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact">Additional</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Header-->
+        <header class="bg-primary bg-gradient text-white">
+            <div class="container px-4 text-center">
+                <h1 class="fw-bolder">Welcome to Bluetooth Section</h1>
+                <p class="lead">Build a connection between Arduino and Your Laptop!</p>
+                <a class="btn btn-lg btn-light" href="#about">Start scrolling!</a>
+            </div>
+        </header>
+        <!-- About section-->
+        <section id="about">
+            <div class="container px-4">
+                <div class="row gx-4 justify-content-center">
+                    <div class="col-lg-8">
+                        <h2>Objective</h2>
+                        <p class="lead">The purpose of part two of this lab is to establish communication between your computer and the Artemis board through the Bluetooth stack. We will be using Python inside a Jupyter notebook on the computer end and the Arduino programming language on the Artemis side. We will also establish a framework for sending data via Bluetooth that will be useful in future labs.</p>
+                        <ul>
+                            <li>Connect Arduino with out laptop. </li>
+                            <li>Data interaction between two devices. </li>
+                            <li>Call back function and notification handler. </li>
+                            <li>Timestamps combined with temperature data. </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-light" id="services">
+            <div class="container px-4">
+                <div class="row gx-4 justify-content-center">
+                    <div class="col-lg-8 ">
+                        <h2>Pre lab</h2>
+                        <p style="font-weight: normal">We can get the MAC Address using the code below, the result MAC Address is shown in the serial monitor.</p>
+                       
+                        <center><img src=".\picture\BLE mac address.png" style="box-shadow: 5px 5px 10px #888888;" alt="Description of the image" width="600" height="800"></center>
+
+
+   
+                    
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Services section-->
+        <section class="bg-light" id="services">
+            <div class="container px-4">
+                <div class="row gx-4 justify-content-center">
+                    <div class="col-lg-8 ">
+                        <h2>Task 1</h2>
+                        <p class="lead">Send an ECHO command with a string value from the computer to the Artemis board, and receive an augmented string on the computer.</p>
+                        <p style="font-weight: normal">We can see from the figure below that after sending a command 'ECHO' with a text 'hello', the Arduino returned a sentence 'The Robot says -> hello' in the serial monitor.</p>
+                       
+                        <center><img src=".\picture\Task Echo.png" style="box-shadow: 5px 5px 10px #888888;" alt="Description of the image" width="600" height="300"></center>
+                        <p></p>
+                        <p style="font-weight: lighter">The corresponding code is show below</p>
+
+                        <pre>
+                        <code>
+            case ECHO:
+
+            char char_arr[MAX_MSG_SIZE];
+
+            // Extract the next value from the command string as a character array
+            success = robot_cmd.get_next_value(char_arr);
+            if (!success){
+                Serial.print("Not Success!");
+                return;
+            }
+                
+
+            tx_estring_value.clear();
+            tx_estring_value.append("The Robot says -> ");
+            tx_estring_value.append(char_arr);
+            tx_characteristic_string.writeValue(tx_estring_value.c_str());
+
+            Serial.print("Sent back: ");
+            Serial.println(tx_estring_value.c_str());
+            
+            break;
+                        </code>
+                        </pre>
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TASK 2-->
+        <section class="bg-light" id="services">
+            <div class="container px-4">
+                <div class="row gx-4 justify-content-center">
+                    <div class="col-lg-8 justify-content-center">
+                        <h2>Task 2</h2>
+                        <p class="lead">Add a command GET_TIME_MILLIS which makes the robot reply write a string such as “T:123456” to the string characteristic.</p>
+                        <p style="font-weight: normal">We can see from the figure below that after sending a command 'GET_TIME_MILLIS', the Arduino returned a string 'T:123456' in the serial monitor.</p>
+                        
+                        <center><img src=".\picture\Task GET_TIME_MILLIS.png" style="box-shadow: 5px 5px 10px #888888;" alt="Description of the image" width="600" height="300"></center>
+                        <p></p>
+                        <p style="font-weight: lighter">The corresponding code is show below</p>
+                        <pre>
+                        <code>
+            case GET_TIME_MILLIS:
+            tx_estring_value.clear();
+            tx_estring_value.append("T:123456");
+            tx_characteristic_string.writeValue(tx_estring_value.c_str());
+
+            Serial.print("Sent back: ");
+            Serial.println(tx_estring_value.c_str());
+            break;
+                        </code>
+                        </pre>
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TASK 3-->
+        <section class="bg-light" id="services">
+            <div class="container px-4">
+                <div class="row gx-4 justify-content-center">
+                    <div class="col-lg-8 justify-content-center">
+                        <h2>Task 3</h2>
+                        <p class="lead">Setup a notification handler in Python to receive the string value (the <b>BLEStringCharactersitic</b> in Arduino) from the Artemis board. In the callback function, extract the time from the string.</p>
+                        <p style="font-weight: normal">Here below is the instruction of the function we gonna use in implementing the notification handler callback function</p>
+                        <center><img src=".\picture\Task 3\function_to_be_use.png" style="box-shadow: 5px 5px 10px #888888;" alt="Description of the image" width="600" height="300"></center>
+                        
+                        <p></p>
+                        <p style="font-weight: normal">Let's  take a look at the source code of the function <b>start_notify()</b> and <b>stop_notify</b> in the figure below:</p>
+                        <center><img src=".\picture\Task 3\notify.png" style="box-shadow: 5px 5px 10px #888888;" alt="Description of the image" width="600" height="300"></center>
+
+                        <p></p>
+                        <p style="font-weight: normal">And the function of converting bytearray to string/float/int :</p>
+                        <center><img src=".\picture\Task 3\bytearray.png" style="box-shadow: 5px 5px 10px #888888;" alt="Description of the image" width="600" height="250"></center>
+
+                        <p></p>
+                        <p style="font-weight: normal">combining the function above, we can wrote the code below in our <b>Jupyter Notebook</b>: </p>
+                        <pre>
+                            <code>
+            def handle_notification(uuid,bytearray):
+            converted_num = ble.bytearray_to_float(bytearray)
+            print('The current time is : ',converted_num)
+        
+            ble.start_notify(ble.uuid['RX_FLOAT'],handle_notification)
+            
+            time.sleep(3)
+            
+            ble.stop_notify(ble.uuid['RX_FLOAT'])
+                            </code>
+                            </pre>
+
+                            <p></p>
+                            <p style="font-weight: normal">And then get the result:</p>
+                            <center>
+                                <img src=".\picture\Task 3\result.png" alt="Description of the image" style="box-shadow: 5px 5px 10px #888888;" width="600" height="400">
+                            </center>
+                                                        <p></p>
+                            <p style="font-weight: normal">As shown above, our computer successfully handled the notification sent from the Arduino</p>
+                                </div>
+                                </div>
+                                </div>
+                                </section>
+
+
+
+        <!-- TASK 4-->
+        <section class="bg-light" id="services">
+            <div class="container px-4">
+                <div class="row gx-4 justify-content-center">
+                    <div class="col-lg-8 justify-content-center">
+                        <h2>Task 4</h2>
+                        <p class="lead">Write a loop that gets the current time in milliseconds and sends it to your laptop to be received and processed by the notification handler. Collect these values for a few seconds and use the time stamps to determine how fast messages can be sent. What is the effective data transfer rate of this method?</p>
+                        <p style="font-weight: normal">Here below is the code written in the Arduino</p>
+                        
+                        <pre>
+                            <code>
+            case HOW_FAST:
+            cnt=0;
+            while(cnt < MAX_STRING)
+            {
+                tx_estring_value.clear();
+                tx_estring_value.append("T:");
+                tx_estring_value.append((float)millis());
+                tx_characteristic_string.writeValue(tx_estring_value.c_str());
+                cnt++;
+            }
+            break;
+                            </code>
+                        </pre>
+
+                        <p style="font-weight: normal">Some <b> IMPORTANT</b> notes:</p>
+
+                        <ul>
+                            <li>Here we used the estring to transmit the timestamps instead of the float value</li>
+                            <li>This is to avoid conflict with the write_data() function in main loop</li>
+                            <li>Also, the estring is more general to use because it can be adapted to string/int/float types of values</li>
+                            <li>the value of millis() is <b>long</b>, so we have to convert it using '(float)'</li>
+                        </ul>
+                        
+                        <p></p>
+                        <p style="font-weight: normal">Then we can implement the callback function in Jupyter Notebook to receive information from Arduino</p>
+
+                        <center><img src=".\picture\Task 4\result.png" style="box-shadow: 5px 5px 10px #888888;" alt="Description of the image" width="600" height="700"></center>
+                        <p></p>
+
+                        <p style="font-weight: normal">To make the timestamps results shown in the figure above easier to analyze, we made line-plots below: </p>
+                        <p></p>
+                        <center><img src=".\picture\Task 4\interval1.png" style="box-shadow: 5px 5px 10px #888888;" alt="Description of the image" width="600" height="400"></center>
+                        <p></p>
+                        <center><img src=".\picture\Task 4\interval 2.png" style="box-shadow: 5px 5px 10px #888888;" alt="Description of the image" width="600" height="400"></center>
+                        <p></p>
+                        <p style="font-weight: normal">As shown above, the time interval in this approach is unstable, the difference is 0ms or about 60ms</p>
+                        <p></p>
+                        <p style="font-weight: normal">By further caculating the data from the time interval, we get the result: </p>
+                        <p></p>
+                        <center><img src=".\picture\Task 4\analysis.png" style="box-shadow: 5px 5px 10px #888888;" alt="Description of the image" width="600" height="150"></center>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TASK 5-->
+        <section class="bg-light" id="services">
+            <div class="container px-4">
+                <div class="row gx-4 justify-content-center">
+                    <div class="col-lg-8 justify-content-center">
+                        <h2>Task 5</h2>
+                        <p class="lead">Now create an array that can store time stamps. This array should be defined globally so that other functions can access it if need be. In the loop, rather than send each time stamp, place each time stamp into the array. (Note: you’ll need some extra logic to determine when your array is full so you don’t “over fill” the array.) Then add a command SEND_TIME_DATA which loops the array and sends each data point as a string to your laptop to be processed. (You can store these values in a list in python to determine if all the data was sent over.)</p>
+                       
+                        <p></p>
+                        <p style="font-weight: normal">To store the data in the array, we use the code below in the Arduino:</p>
+
+                        <p></p>
+                        <center><img src=".\picture\Task 5\2.png" style="box-shadow: 5px 5px 10px #888888;" alt="Description of the image" width="600" height="250"></center>
+                        
+                        <p></p>
+                        <p style="font-weight: normal">And the results in the Jupyter Notebook is shown below:</p>
+                        
+                        <p></p>
+                        <center><img src=".\picture\Task 5\3.png" style="box-shadow: 5px 5px 10px #888888;" alt="Description of the image" width="600" height="600"></center>
+                        
+                        <p></p>
+                        <p style="font-weight: normal">The line-plot based on this data is: </p>
+                        
+                        <p></p>
+                        <center><img src=".\picture\Task 5\1.png" style="box-shadow: 5px 5px 10px #888888;" alt="Description of the image" width="600" height="400"></center>
+                        
+                        <p></p>
+                        <center><img src=".\picture\Task 5\download.png" style="box-shadow: 5px 5px 10px #888888;" alt="Description of the image" width="600" height="400"></center>
+
+                        <p></p>
+                        <p style="font-weight: normal">And the analyzed data is: </p>
+                        
+                        <p></p>
+                        <center><img src=".\picture\Task 5\4.png" style="box-shadow: 5px 5px 10px #888888;" alt="Description of the image" width="600" height="110"></center>
+
+                        <p></p>
+                        <p style="font-weight: bolder">Discussion: </p>
+                        <p style="font-weight: normal">This approach is much more stable since the time difference is almost 0 with seldom fluctuate, and the standard deviation of the time difference is also much smaller than that of the last approach </p>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- TASK 6-->
+        <section class="bg-light" id="services">
+            <div class="container px-4">
+                <div class="row gx-4 justify-content-center">
+                    <div class="col-lg-8 justify-content-center">
+                        <h2>Task 6</h2>
+                        <p class="lead">Add a second array that is the same size as the time stamp array. Use this array to store temperature readings. Each element in both arrays should correspond, e.e., the first time stamp was recorded at the same time as the first temperature reading. Then add a command GET_TEMP_READINGS that loops through both arrays concurrently and sends each temperature reading with a time stamp. The notification handler should parse these strings and add populate the data into two lists.</p>
+                       
+                        <p></p>
+                        <p style="font-weight: normal">Here below is the code in Arduino, which can store and send both the timestamps and temperature: </p>
+
+                        <p></p>
+                        <center><img src=".\picture\Task 6\1.png" style="box-shadow: 5px 5px 10px #888888;" alt="Description of the image" width="600" height="500"></center>
+                        
+                        <p></p>
+                        <p style="font-weight: normal">Here we used the command <b> float temp_f = getTempDegF() </b> to get the temperature data from Arduino</p>
+                        
+                        
+                        <p></p>
+                        <p style="font-weight: normal">And the received result in the Jupyter Notebook is shown below: </p>
+                        
+                        <p></p>
+                        <center><img src=".\picture\Task 6\2.png" style="box-shadow: 5px 5px 10px #888888;" alt="Description of the image" width="600" height="600"></center>
+                       
+
+                        <p></p>
+                        <p style="font-weight: normal">The result shows that the time and temperature data are well received and separared in my laptop</p>
+                        
+                       
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- TASK 7-->
+        <section class="bg-light" id="services">
+            <div class="container px-4">
+                <div class="row gx-4 justify-content-center">
+                    <div class="col-lg-8 justify-content-center">
+                        <h2>Task 7</h2>
+                        <p class="lead" >Discuss the differences between these two methods, the advantages and disadvantages of both and the potential scenarios that you might choose one method over the other. How “quickly” can the second method record data? The Artemis board has 384 kB of RAM. Approximately how much data can you store to send without running out of memory?</p>
+                       
+                        <p></p>
+                        <p style="font-weight: normal" style="font-weight: bold"><b>Discussion: </b></p>
+
+                        
+                        <p></p>
+                        <p style="font-weight: normal">The first method is sending information immidiately after gasping the data from the Arduino, whose data transfer time interval is relatively unstable, and this method do not require much on the RAM. </p>
+                        
+                        
+                        <p></p>
+                        <p style="font-weight: normal">The second method is storing data in the array and then read and transfer the data from the Arduino to the computer, which is much more stable but needs more RAM space to operate.  </p>
+                        
+                        <p></p>
+                        <p style="font-weight: normal">For the second approach, if we are sampling data at 1 kHz and each sample is 4 bytes (32 bits), we would be storing data at a rate of 4 kilobytes per second (1 kHz * 4 bytes). The 384kB RAM could be filled up in 96 seconds (384 kB / 4 kB per second). </p>
+                        
+                        
+                       
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Additional section-->
+        <section id="contact">
+            <div class="container px-4">
+                <div class="row gx-4 justify-content-center">
+                    <div class="col-lg-8">
+                        <h2>Additional Task 1</h2>
+                        <p class="lead"><b>Effective Data Rate And Overhead:</b> Send a message from the computer and receive a reply from the Artemis board. Note the respective times for each event, calculate the data rate for 5-byte replies and 120-byte replies. Do many short packets introduce a lot of overhead? Do larger replies help to reduce overhead? You may also test additional reply sizes. Please include at least one plot to support your write-up.</p>
+                    
+                        <p></p>
+                        <p style="font-weight: normal">Here below is the code of sending messages.</p>
+
+                        <p></p>
+                        <center><img src=".\picture\Add1\sending.png" style="box-shadow: 5px 5px 10px #888888;" alt="Description of the image" width="600" height="550"></center>
+                       
+                        <p></p>
+                        <p style="font-weight: normal">Here below is the code of receiving and replying the message.</p>
+
+                        <p></p>
+                        <center><img src=".\picture\Add1\reply.png" style="box-shadow: 5px 5px 10px #888888;" alt="Description of the image" width="600" height="300"></center>
+                        
+
+
+                        <p></p>
+                        <p style="font-weight: normal">After testing, the 5-byte rate is 21.05 bytes/sec, and the 120-byte rate is 517.28 bytes/sec </p>
+          
+                        <p></p>
+                        <p style="font-weight: normal">The graph below illustrates a clear correlation between the data rate and the quantity of bytes transmitted. This pattern indicates that sending larger replies contributes to a reduction in overhead.</p>
+
+                        <p></p>
+                        <center><img src=".\picture\Add1\download.png" style="box-shadow: 5px 5px 10px #888888;" alt="Description of the image" width="600" height="500"></center>
+                        
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Additional section-->
+        <section id="contact">
+            <div class="container px-4">
+                <div class="row gx-4 justify-content-center">
+                    <div class="col-lg-8">
+                        <h2>Additional Task 2</h2>
+                        <p class="lead"><b>Reliability:</b> What happens when you send data at a higher rate from the robot to the computer? Does the computer read all the data published (without missing anything) from the Artemis board? Include your answer in the write-up.</p>
+                        
+                        <p></p>
+                        <p style="font-weight: normal">To test the Reliability in high-speed transfer, we print the result of the function <b>SEND_TIME_DATA</b> in both Arduino and Jupyter lab, here below is the results: </p>
+
+                        <p></p>
+                        <center><img src=".\picture\Add2.png" style="box-shadow: 5px 5px 10px #888888;" alt="Description of the image" width="600" height="550"></center>
+                                           
+                        <p></p>
+                        <p style="font-weight: normal">We could notice that the transfer rate is very high and the lost of data did not occur, which implys that this system has a good Reliability</p>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Footer-->
+        <footer class="py-5 bg-dark">
+            <div class="container px-4"><p class="m-0 text-center text-white">Copyright &copy; Hongyu Yao 2024</p></div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+</html>
