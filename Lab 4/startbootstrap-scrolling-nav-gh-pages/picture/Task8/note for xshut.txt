@@ -1,0 +1,1 @@
+When the XSHUT pin is brought low (connected to ground), the sensor is in shutdown mode, and it consumes very little power. 

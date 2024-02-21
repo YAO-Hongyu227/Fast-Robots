@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Scrolling Nav - Start Bootstrap Template</title>
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+    <style>
+        code {
+            counter-reset: line;
+            display: block;
+            background-color: #6abebe28;
+            white-space: pre;
+            overflow-x: scroll;
+            overflow-y: scroll;
+            max-width: 100%;
+            min-width: 100px;
+            padding: 0;
+            box-shadow: 5px 5px 10px #888888;
+            transition: box-shadow 0.3s ease-in-out;
+        }
+    </style>
+
+
+    <body id="page-top"  >
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+            <div class="container px-4">
+                <a class="navbar-brand" href="#page-top">Lab4 TOF</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="#about">Objective</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#services">Lab</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact">Additional</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Header-->
+        <header class="bg-primary bg-gradient text-white">
+            <div class="container px-4 text-center">
+                <h1 class="fw-bolder">Welcome to TOF Section</h1>
+                <p class="lead"> Using TOF to measure the distance!</p>
+                <a class="btn btn-lg btn-light" href="#about">Start scrolling!</a>
+            </div>
+        </header>
+        <!-- About section-->
+        <section id="about">
+            <div class="container px-4">
+                <div class="row gx-4 justify-content-center">
+                    <div class="col-lg-8">
+                        <h2>Objective</h2>
+                        <p class="lead">The purpose of this lab is to equip the robot with sensors - the faster the robot can sample and the more it can trust a sensor reading, the faster it is able to drive.</p>
+                        <ul>
+                            <li>Get data from the TOF. </li>
+                            <li>Connect Arduino to two TOFs. </li>
+                            <li>Test the receiving data rate of TOF sensor.</li>
+                            <li>Send TOF data to our device.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- TASK 1-->
+        <section class="bg-light" id="services">
+            <div class="container px-4">
+                <div class="row gx-4 justify-content-center">
+                    <div class="col-lg-8 ">
+                        <h2>Task 1</h2>
+                        <p style="font-weight: normal">Scan the I2C channel to find the sensor</p>
+                        <p style="font-weight: normal">We used the following step to find the TOF sensor</p>
+                        
+                        <p style="font-weight: normal">1. Go to File->Examples->Apollo3->Wire and open Example1_wire_I2C</p>
+                        <p style="font-weight: normal">2. Browse through the code to see how to use i2c commands.</p>
+                        <p style="font-weight: normal">3. Run the code</p>
+                        
+                        <p style="font-weight: normal">And here below is the result: </p>
+
+                        <center><img src=".\picture\Task5\correctresult.png" style="box-shadow: 5px 5px 10px #888888;" alt="Description of the image" width="600" height="800"></center>
+                        <p></p>
+                        <p style="font-weight: normal">From the serial monitor we could notic that some times the TOP with adress 0x29 is detected and sometimes it was not detected. This is normal to the TOF sensor, which also means that we successfully find the sensor. </p>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TASK 2-->
+        <section class="bg-light" id="services">
+            <div class="container px-4">
+                <div class="row gx-4 justify-content-center">
+                    <div class="col-lg-8 justify-content-center">
+                        <h2>Task 2</h2>
+                        <p class="lead">Test your chosen mode</p>
+                        
+             
+                        <p style="font-weight: normal">Here we used the middle distance mode to find a balance between distance and precesion, the testing results are shown below in the serial monitor: </p>
+                        <p></p>
+                        <!-- neg 90 roll-->
+                        <center><img src=".\picture\Task6\DistanceResults.png" style="box-shadow: 5px 5px 10px #888888;" alt="Description of the image" width="600" height="600"></center>
+                        <p></p>
+                        <p style="font-weight: normal">To visualize the data, we plot the distance v.s. time in the figure below:  </p>
+                        <p></p>
+                        <center><img src=".\picture\Task6\PlottedDistance.png" style="box-shadow: 5px 5px 10px #888888;" alt="Description of the image" width="600" height="500"></center>
+                        <p></p>
+                        <p style="font-weight: normal">which is in consistent with the action of moving the TOP sensor far away from the wall</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TASK 3-->
+        <section class="bg-light" id="services">
+            <div class="container px-4">
+                <div class="row gx-4 justify-content-center">
+                    <div class="col-lg-8 justify-content-center">
+                        <h2>Task 3</h2>
+                        <p class="lead">Using notes from the pre-lab, hook up both ToF sensors simultaneously and demonstrate that both works.</p>
+                        
+                        <p style="font-weight: normal">We choose one TOF and connect its 'xshut' pin to the A14 pin of the arduino, shown in the figure below, connected using the green cable.</p>
+                        <center><img src=".\picture\Task8\5792074bc9af1090605b7b7a5f828cb.jpg" style="box-shadow: 5px 5px 10px #888888;" alt="Description of the image" width="600" height="600"></center>
+                        
+                        <p></p>
+                        <p style="font-weight: normal">when the xshut pin is LOW, the TOF will shut down, so that we can connect the other TOF and change its address. After that we change the xshut to HIGH to connect to the other TOF. The code in Arduino is shown below: </p>
+
+                        <p></p>
+                        <center><img src=".\picture\Task8\1c12b3ad50615fba866233f8a50da39.png" style="box-shadow: 5px 5px 10px #888888;" alt="Description of the image" width="600" height="700"></center>
+
+                        <p></p>
+                        <p style="font-weight: normal">And its result is shown below: </p>
+                        <center><img src=".\picture\Task8\TwoTOFResult.png" style="box-shadow: 5px 5px 10px #888888;" alt="Description of the image" width="600" height="800"></center>
+                        
+
+                                </div>
+                                </div>
+                                </div>
+                                </section>
+
+
+
+        <!-- TASK 4-->
+        <section class="bg-light" id="services">
+            <div class="container px-4">
+                <div class="row gx-4 justify-content-center">
+                    <div class="col-lg-8 justify-content-center">
+                        <h2>Task 4</h2>
+                        <p class="lead">In future labs, it is essential that the code executes quickly, therefore you cannot let your code hang while it waits for the sensor to finish a measurement. Write a piece of code that prints the Artemis clock to the Serial as fast as possible, continuously, and prints new ToF sensor data from both sensors only when available.</p>
+                        
+                        <p></p>
+                        <p style="font-weight: normal">Here below is the result with delay: </p>
+                        <center><img src=".\picture\Task9\TimeIntervalWithDelay.png" style="box-shadow: 5px 5px 10px #888888;" alt="Description of the image" width="600" height="700"></center>
+                        
+                        <p></p>
+                        <p style="font-weight: normal">With delay, the time inteval is nearly 100ms, which means that only 10 TOF data were received per second.</p>
+
+                        <p></p>
+                        <p style="font-weight: normal">Then we modified the code below to delete the delay: </p>
+                        <center><img src=".\picture\Task9\code.png"style="box-shadow: 5px 5px 10px #888888;" alt="Description of the image" width="600" height="400"></center>
+                        <p></p>
+                        <p style="font-weight: normal">And the result without delay is: </p>
+                        <center><img src=".\picture\Task9\withoutdelay.png"style="box-shadow: 5px 5px 10px #888888;" alt="Description of the image" width="600" height="800"></center>
+                        <p></p>
+                        <p style="font-weight: normal">The result shows that without delay, we can send data every 5-8 ms, even most of the time we cannot get the TOF data update, we can still send other useful message.</p>
+                   
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Additional Task-->
+        <section class="bg-light" id="services">
+            <div class="container px-4">
+                <div class="row gx-4 justify-content-center">
+                    <div class="col-lg-8 justify-content-center">
+                        <h2>Additional Task</h2>
+                        <p class="lead">Many distance sensors are based on infrared trasmission.
+                            Discuss a couple, highlight the differences in their fuctionality and the pros/cons of each.
+                            Check and discuss whether the ToF sensor is sensitive to different colors and textures.</p>
+                        
+                        <p></p>
+                        <p style="font-weight: normal">
+                            Infrared sensors for measuring distance come in different types. Some use triangulation, like the Sharp sensor, which estimates distance from reflected light angles, making it simple but less precise. Others, like Time-of-Flight (ToF) sensors such as VL53L0X, measure the time light takes to reflect, offering better accuracy. However, ToF sensors might be influenced by target color and texture due to light properties. The choice depends on the needs - a simple approach with less accuracy (like Sharp) or a more precise method (like VL53L0X) that might be sensitive to the color and texture of the target.</p>
+
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Footer-->
+        <footer class="py-5 bg-dark">
+            <div class="container px-4"><p class="m-0 text-center text-white">Copyright &copy; Hongyu Yao 2024</p></div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+</html>
