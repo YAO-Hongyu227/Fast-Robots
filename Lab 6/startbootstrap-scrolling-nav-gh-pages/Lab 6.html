@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Scrolling Nav - Start Bootstrap Template</title>
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+    <style>
+        code {
+            counter-reset: line;
+            display: block;
+            background-color: #6abebe28;
+            white-space: pre;
+            overflow-x: scroll;
+            overflow-y: scroll;
+            max-width: 100%;
+            min-width: 100px;
+            padding: 0;
+            box-shadow: 5px 5px 10px #888888;
+            transition: box-shadow 0.3s ease-in-out;
+        }
+    </style>
+
+
+    <body id="page-top"  >
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+            <div class="container px-4">
+                <a class="navbar-brand" href="#page-top">Lab6 PID Controller</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="#about">Objective</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#services">Lab</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact">Additional</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Header-->
+        <header class="bg-primary bg-gradient text-white">
+            <div class="container px-4 text-center">
+                <h1 class="fw-bolder">Welcome to PID control Section</h1>
+                <p class="lead"> Using PID controller to control the speed of the DC motor!</p>
+                <a class="btn btn-lg btn-light" href="#about">Start scrolling!</a>
+            </div>
+        </header>
+        <!-- About section-->
+        <section id="about">
+            <div class="container px-4">
+                <div class="row gx-4 justify-content-center">
+                    <div class="col-lg-8">
+                        <h2>Objective</h2>
+                        <p class="lead">The purpose of this lab is to get experience with PID control. The lab is fairly open ended, you can pick whatever controller works best for your system. 4000-level students can choose between P, PI, PID, PD; 5000-level students can choose between PI and PID controllers. Your hand-in will be judged upon your demonstrated understanding of PID control and practical implementation constraints, and the quality of your solution.</p>
+                        <ul>
+                            <li>Design PID controller </li>
+                            <li>Using PWM to control the DC motor </li>
+                            <li>Tune the parameter</li>
+                            <li>Additional tricks</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- TASK 1-->
+        <section class="bg-light" id="services">
+            <div class="container px-4">
+                <div class="row gx-4 justify-content-center">
+                    <div class="col-lg-8 ">
+                        <h2>Task 1</h2>
+                        <p class="lead">Design the PID controller</p>
+
+                        <p style="font-weight: normal">Here below is the code of my PID controller, itself is very simple, but there is a detail:</p>
+                        <p style="font-weight: normal">Because the role of the Integrator is the feedback, so we accumulate the error to the parameter 'integral' only when the current speed and the current error are in the different -/+ regions. </p>
+                        <p style="font-weight: normal">The benefit of this operation is that it makes our car response much more rapidly when it exceeds the limit line (300mm in this task) since the parameter 'Integrator' is always 0 before that. So when the distance is less than 300mm, the parameter 'Integrator' will immidiately be negative and then slow down the speed to make the car brake.  </p>
+                        <p></p>
+
+                        <center><img src=".\picture\PIDcode.png" style="box-shadow: 5px 5px 10px #888888;" alt="Description of the image" width="600" height="200"></center>
+                        <p></p>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TASK 2-->
+        <section class="bg-light" id="services">
+            <div class="container px-4">
+                <div class="row gx-4 justify-content-center">
+                    <div class="col-lg-8 justify-content-center">
+                        <h2>Task 2</h2>
+                        <p class="lead">Mapping the speed to the PWM</p>
+                        
+             
+                        <p style="font-weight: normal">Because there exists differece between desired speed and the desired PWM, we should mapping these two parameters so that they have the same original point. As tested last Lab, when the PWM is 30, the car will start to move, so we should map the 0-speed point to the 30/-30 PWM point. Here below is the code: </p>
+                        <p></p>
+                        <center><img src=".\picture\mapping.png" style="box-shadow: 5px 5px 10px #888888;" alt="Description of the image" width="600" height="100"></center>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TASK 3-->
+        <section class="bg-light" id="services">
+            <div class="container px-4">
+                <div class="row gx-4 justify-content-center">
+                    <div class="col-lg-8 justify-content-center">
+                        <h2>Task 3</h2>
+                        <p class="lead">Extrapolation</p>
+                        
+                        <p style="font-weight: normal">The frequency of our TOF data is only 10Hz, which is not enough to update the PID parameter and make fast response. So that we make this Extrapolation as shown below:  </p>
+                        <p></p>
+                        <center><img src=".\picture\extra.png" style="box-shadow: 5px 5px 10px #888888;" alt="Description of the image" width="600" height="150"></center>
+                        <p></p>
+                        <p style="font-weight: normal">Using this method, we can predict the location of our car (the distance to the obstacle) in the interval that the TOF got no response. Because the response frequency of TOF is only 10Hz and our loop frequency is 200Hz, so this implement is very necessary to make fast response.</p>
+
+                        <p></p>
+                                </div>
+                                </div>
+                                </div>
+                                </section>
+
+
+
+        <!-- TASK 4-->
+        <section class="bg-light" id="services">
+            <div class="container px-4">
+                <div class="row gx-4 justify-content-center">
+                    <div class="col-lg-8 justify-content-center">
+                        <h2>Task 4</h2>
+                        <p class="lead">Anything goes: The goal is a working system. When you have a reasonable control setup working, you should feel free to add any “hacks” that will improve your robot performance in a reliable way. If you don’t have time to implement them, discussing what you imagine would help can still get you grading points.</p>
+                        
+                        <p></p>
+                        <p style="font-weight: normal">By using the simple PID control, we found that when our initial speed is large or the accumulation distance is longer, the speed of the car when reaching the 30cm limit distance will be too fast to stop before hitting the obstacle.</p>
+                        
+                        <p></p>
+                        <p style="font-weight: normal">So my idea is to make the car slow down before reaching the 30cm limit distance. My trick is adding one more limit distance at 80cm. The car will start to slow down when the distance is below 80cm, and when the current distance is below 60cm and the current speed is kind of slow, the target distance will switch to 30cm, which is our final target.</p>
+                        
+                        <p style="font-weight: normal">And the code is attached here:</p>
+                        <center><img src=".\picture\trick.png" style="box-shadow: 5px 5px 10px #888888;" alt="Description of the image" width="600" height="125"></center>
+                        <p></p>
+                        <p style="font-weight: normal">As the code illustrates, we calculated the instant speed to decide whether the current speed of the car is appropriate to switch to the 30cm target.</p>
+                        <p style="font-weight: normal">There is a detail that we should clear our integral parameter of the PID controller since we have already changed the target, the accumulated error should be calculated based on the new target.</p>
+
+                   
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TASK 5-->
+        <section class="bg-light" id="services">
+            <div class="container px-4">
+                <div class="row gx-4 justify-content-center">
+                    <div class="col-lg-8 justify-content-center">
+                        <h2>Task 5</h2>
+                        <p class="lead">Tuning the Kp, Ki and Kd</p>
+                        
+                        
+                        <p style="font-weight: normal">For more convinent tuning, I wrote the program that I can change the PID parameters in the jupyter lab terminal so that we do not need to upload the code to the arduino board each time when changing the PID parameter.</p>
+                        <center><img src=".\picture\para.png" style="box-shadow: 5px 5px 10px #888888;" alt="Description of the image" width="600" height="100"></center>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Additional Task1-->
+        <section class="bg-light" id="services">
+            <div class="container px-4">
+                <div class="row gx-4 justify-content-center">
+                    <div class="col-lg-8 justify-content-center">
+                        <h2>Final Result</h2>
+                        <p class="lead"> </p>
+
+                        <p></p>
+                        <p style="font-weight: normal">Our final result is beyond my expectation since it can stop rapidly from a fast speed. </p>
+                        <p></p>
+
+                        <center><iframe width="560" height="315" src="https://www.youtube.com/embed/YfBUmtMrQWY?si=rj9NuF5E9_NQIJhb" frameborder="0" allowfullscreen></iframe></center>
+                        <p style="font-weight: normal">Here below is the data received in my computer and plotted as figures. </p>
+                        <p></p>
+
+                        <p style="font-weight: normal">The first figure is the distance w.r.t time, which decreases from 1800mm to 150mm at least and then bounce back to about 300mm. </p>
+                        
+                        <p></p>
+                        <p style="font-weight: normal">Our initial distance to the wall is over 2m, but the TOF distance is only 1.8m.</p>
+                        <p></p>
+
+
+                        <center><img src=".\picture\distance.png" style="box-shadow: 5px 5px 10px #888888;" alt="Description of the image" width="600" height="400"></center>
+                        <p></p>
+                        <p style="font-weight: normal">The second figure is the PWM vs Time, as shown below, to make our car run as soon as possible, we make the largest PWM nearly 255, which is the theorical maximum speed.</p>
+                        <p></p>
+                        <p style="font-weight: normal">And one thing noticeable is that the PWM is bouncing between 255 and -255, this is because our Ki and Kd value are exteremely large, which are 0.1 and 10, making the fluctuation large but stop fast. </p>
+
+                        <p></p><center><img src=".\picture\pwm.png" style="box-shadow: 5px 5px 10px #888888;" alt="Description of the image" width="600" height="400"></center>
+                        <p></p>
+                        <p style="font-weight: normal">The final one is the instant speed, and we can see that in the interval when there is no TOF data, the extrapolated speed is very stable. When there is a TOF data, the instant speed will change fiercely.</p>
+
+                        <p></p><center><img src=".\picture\speed.png" style="box-shadow: 5px 5px 10px #888888;" alt="Description of the image" width="600" height="400"></center>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Additional Task2-->
+        <section class="bg-light" id="services">
+            <div class="container px-4">
+                <div class="row gx-4 justify-content-center">
+                    <div class="col-lg-8 justify-content-center">
+                        <h2>Additional Task 1</h2>
+                        <p class="lead">Implement wind-up protection for your integrator. Argue for why this is necessary (you may for example demonstrate how your controller works reasonably independent of floor surface). Demonstrate your system with and without wind-up protection.</p>
+                        
+                        <p style="font-weight: normal">I left the car in the laboratory, and will implement this in Wednesday's lab</p>
+
+                     
+
+  
+                      
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+        <!-- Footer-->
+        <footer class="py-5 bg-dark">
+            <div class="container px-4"><p class="m-0 text-center text-white">Copyright &copy; Hongyu Yao 2024</p></div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+</html>
