@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Scrolling Nav - Start Bootstrap Template</title>
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+    <style>
+        code {
+            counter-reset: line;
+            display: block;
+            background-color: #6abebe28;
+            white-space: pre;
+            overflow-x: scroll;
+            overflow-y: scroll;
+            max-width: 100%;
+            min-width: 100px;
+            padding: 0;
+            box-shadow: 5px 5px 10px #888888;
+            transition: box-shadow 0.3s ease-in-out;
+        }
+    </style>
+
+
+    <body id="page-top"  >
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+            <div class="container px-4">
+                <a class="navbar-brand" href="#page-top">Lab7 Orientation Control</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="#about">Objective</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#services">Lab</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact">Additional</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Header-->
+        <header class="bg-primary bg-gradient text-white">
+            <div class="container px-4 text-center">
+                <h1 class="fw-bolder">Welcome to Orientation Control Section</h1>
+                <p class="lead"> Using PID controller to control the orientation of the car!</p>
+                <a class="btn btn-lg btn-light" href="#about">Start scrolling!</a>
+            </div>
+        </header>
+        <!-- About section-->
+        <section id="about">
+            <div class="container px-4">
+                <div class="row gx-4 justify-content-center">
+                    <div class="col-lg-8">
+                        <h2>Objective</h2>
+                        <p class="lead">The purpose of this lab is to get experience with orientation PID using the IMU. In Lab 5, PID control was done on wall distance using the TOF sensors, this lab will involve controlling the yaw of your robot using the IMU. Like last lab, you can pick whatever controller works best for your system. 4000-level students can choose between P, PI, PID, PD; 5000-level students can choose between PI and PID controllers. Your hand-in will be judged upon your demonstrated understanding of PID control and practical implementation constraints, and the quality of your solution.</p>
+                        <ul>
+                            <li>Design PID controller </li>
+                            <li>Using PWM to control the DC motor </li>
+                            <li>Tune the parameter</li>
+                            <li>Additional tricks</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- TASK 1-->
+        <section class="bg-light" id="services">
+            <div class="container px-4">
+                <div class="row gx-4 justify-content-center">
+                    <div class="col-lg-8 justify-content-center">
+                        <h2>Task 1</h2>
+                        <p class="lead">Simply P controller</p>
+                        
+                        <p style="font-weight: normal">The most basic P controller with kp=10 could make the car turn back to the roughly initial orientation after manually turning the car.</p>
+                        <p></p>
+                        <center><img src=".\picture\Pyaw.png" style="box-shadow: 5px 5px 10px #888888;" alt="Description of the image" width="600" height="500"></center>
+                        <p></p>
+                        <p style="font-weight: normal">However, there is a noticeable difference between the initial orientation direction and the fianl orientation direction (about 6 degrees).</p>
+                        <p></p>
+                        <p style="font-weight: normal">So, it is necessary for us to implement a integrator to eliminate this difference.</p>
+                        <p></p>
+                                </div>
+                                </div>
+                                </div>
+                                </section>
+
+
+
+        <!-- TASK 2-->
+        <section class="bg-light" id="services">
+            <div class="container px-4">
+                <div class="row gx-4 justify-content-center">
+                    <div class="col-lg-8 justify-content-center">
+                        <h2>Task 2</h2>
+                        <p class="lead">PI Controller</p>
+                        <p></p>
+                        <p style="font-weight: normal">Here below shows the result after adding an integrator with ki = 1, and the final error after each turning back is remaining within +-2 degrees, which is totally acceptable for us. </p>
+                        <p></p>
+
+                        <center><img src=".\picture\PIyaw.png" style="box-shadow: 5px 5px 10px #888888;" alt="Description of the image" width="600" height="500"></center>
+
+                        <p></p>
+                        <p style="font-weight: normal">Because the result of the PI controller is good enough, I think it is not necessary to implement an extra D controller, so the PI controller is my final version.</p>
+                        
+                        <p></p>                        
+                        <p style="font-weight: normal">And the demo result is attached here:</p>
+                        <p></p>
+                        <center><iframe width="560" height="315" src="https://www.youtube.com/embed/SjiwWGZDuNw?si=Mqn5U2svfjHt8uFH"  frameborder="0" allowfullscreen></iframe></center>
+                        <p></p>
+                        <p style="font-weight: normal">From the video above we could know that the car could turn back to the inital orientation direction no matter which direction we manually turn the car. And the error is within 2 degrees.</p>
+
+                   
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TASK 3-->
+        <section class="bg-light" id="services">
+            <div class="container px-4">
+                <div class="row gx-4 justify-content-center">
+                    <div class="col-lg-8 justify-content-center">
+                        <h2>Task 3</h2>
+                        <p class="lead">Change the set point</p>
+                        
+                        <p style="font-weight: normal">To test whether the car could change the set point and still remain stable and convergent, I wrote the code below in the PI contoller part.</p>
+                        <p></p>
+                        <center><img src=".\picture\change_setpoint.png" style="box-shadow: 5px 5px 10px #888888;" alt="change set point" width="600" height="300"></center>
+                        <p></p>
+                        <p style="font-weight: normal">As the code above shows, I make the overall process last for 10 seconds, and the setpoint will add 90 degrees when the program has already ran for 5 seconds.</p>
+                        <p></p>
+                        <p style="font-weight: normal">Here below is the figure of setpoint over time:</p>
+                        <p></p>
+                        
+                        <center><img src=".\picture\setpoint.png" style="box-shadow: 5px 5px 10px #888888;" alt="change set point" width="600" height="500"></center>
+                        <p></p>
+                        <p style="font-weight: normal">And here is the yaw returned from the IMU. There is a lack off when we changed the yaw at 5s, the process of changing yaw from 0 to 90 degrees started at about 6 seconds. </p>
+                        <p></p>
+                        <center><img src=".\picture\PI=10,1, changeyaw.png" style="box-shadow: 5px 5px 10px #888888;" alt="change set point" width="600" height="500"></center>
+                        <p></p>
+                        <p style="font-weight: normal">Here below is the video demostration:</p>
+                        <p></p>
+                        <center><iframe width="560" height="315" src=https://youtube.com/embed/wu6YhMw7MUk?si=ck90X4iL2YFuecON  frameborder="0" allowfullscreen></iframe></center>
+
+                        
+                        <p style="font-weight: normal">The result is quite good, there is no divergence observed in the whole process.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+       
+        <!-- Additional Task1-->
+        <section class="bg-light" id="services">
+            <div class="container px-4">
+                <div class="row gx-4 justify-content-center">
+                    <div class="col-lg-8 justify-content-center">
+                        <h2>Additional Task 1</h2>
+                        <p class="lead">Implement wind-up protection for your integrator. Argue for why this is necessary (you may for example demonstrate how your controller works reasonably independent of floor surface). Demonstrate your system with and without wind-up protection.</p>
+                        <p></p>
+                        <p style="font-weight: normal">Here I wrote the wind-up protection for the integrator, limiting the integrator within -50~50, the code is attached here:</p>
+                        <p></p>
+
+                        <center><img src=".\picture\windupcode.png" style="box-shadow: 5px 5px 10px #888888;" alt="change set point" width="600" height="300"></center>
+                        <p></p>
+                        <p style="font-weight: normal">And here is the yaw response after adding a wind-up:</p>
+                        <p></p>
+                        <center><img src=".\picture\windup.png" style="box-shadow: 5px 5px 10px #888888;" alt="change set point" width="600" height="500"></center>
+                        <p></p>
+                        <p style="font-weight: normal">Compared to the non-wind-up code, there are some fluctuations occured after winding up, indicating the wind-up is not necessary for this task since the fraction of wheel rotation is large enough to avoid the overshoot.</p>
+                        <p></p>
+  
+                      
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+        <!-- Footer-->
+        <footer class="py-5 bg-dark">
+            <div class="container px-4"><p class="m-0 text-center text-white">Copyright &copy; Hongyu Yao 2024</p></div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+</html>
