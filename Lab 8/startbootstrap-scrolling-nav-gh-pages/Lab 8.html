@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Scrolling Nav - Start Bootstrap Template</title>
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+    <style>
+        code {
+            counter-reset: line;
+            display: block;
+            background-color: #6abebe28;
+            white-space: pre;
+            overflow-x: scroll;
+            overflow-y: scroll;
+            max-width: 100%;
+            min-width: 100px;
+            padding: 0;
+            box-shadow: 5px 5px 10px #888888;
+            transition: box-shadow 0.3s ease-in-out;
+        }
+    </style>
+
+
+    <body id="page-top"  >
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+            <div class="container px-4">
+                <a class="navbar-brand" href="#page-top">Lab8 Kalman Filter</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="#about">Objective</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#services">Lab</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact">Additional</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Header-->
+        <header class="bg-primary bg-gradient text-white">
+            <div class="container px-4 text-center">
+                <h1 class="fw-bolder">Welcome to Kalman Filter Section</h1>
+                <p class="lead"> Using Kalman Filter to implement data fussion! </p>
+                <a class="btn btn-lg btn-light" href="#about">Start scrolling!</a>
+            </div>
+        </header>
+        <!-- About section-->
+        <section id="about">
+            <div class="container px-4">
+                <div class="row gx-4 justify-content-center">
+                    <div class="col-lg-8">
+                        <h2>Objective</h2>
+                        <p class="lead">The objective of Lab 8 is to implement a Kalman Filter, which will help you execute the behavior you did in Lab 5 faster. The goal now is to use the Kalman Filter to supplement your slowly sampled ToF values, such that you can speed towards the wall as fast as possible, then either stop 1ft from the wall or turn within 2ft.</p>
+                        <ul>
+                            <li>Measure steady state speed </li>
+                            <li>Calculate drag and mass </li>
+                            <li>Implement kalman filter</li>
+                            <li>Data fussion</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- TASK 1-->
+        <section class="bg-light" id="services">
+            <div class="container px-4">
+                <div class="row gx-4 justify-content-center">
+                    <div class="col-lg-8 justify-content-center">
+                        <h2>Task 1</h2>
+                        <p class="lead">Estimate drag and momentum</p>
+                        <p class="lead">To build the state space model for your system, you will need to estimate the drag and momentum terms for your A and B matrices. Here, we will do this using a step response. Drive the car towards a wall at a constant imput motor speed while logging motor input values and ToF sensor output.</p>
+                        <p></p>
+                        <p style="font-weight: normal">First I choose my step response from 0 to 200 PWM (maximum PWM in Lab 5 : PID controller) at 0.5s. The corresponding figure is shown below: (the unit of x-axis is 0.2s, means that when x is 10, the actual time is 10*0.2 = 2s)</p>
+                        <p></p>
+                        <center><img src=".\picture\pwm.png" style="box-shadow: 5px 5px 10px #888888;" alt="Description of the image" width="600" height="500"></center>
+                        <p></p>
+                        <p style="font-weight: normal">As you can see, the PWM start to rise at about 2.5*0.2 = 0.5s</p>
+
+                        <p style="font-weight: normal">Then I get the data sending from the car, and ploted the distance from TOF sensor as below:(the unit of x-axis is 0.2s, means that when x is 10, the actual time is 10*0.2 = 2s)</p>
+                        <p></p>                        
+                        <center><img src=".\picture\distance.png" style="box-shadow: 5px 5px 10px #888888;" alt="Description of the image" width="600" height="500"></center>
+                        <p></p> 
+                        <p style="font-weight: normal">As shown in the figure above, the car is driving towards to the wall and get the steady speed after 6*0.2 = 1.2s. </p>
+                        <p></p>
+                        <p style="font-weight: normal">To have a more direct spot on whether the car reaches a steady speed, I plotted the figure that Speed vs. Time: (the unit of x-axis is 0.2s, means that when x is 10, the actual time is 10*0.2 = 2s) </p>
+                        <p></p>
+                        <center><img src=".\picture\speed.png" style="box-shadow: 5px 5px 10px #888888;" alt="Description of the image" width="600" height="500"></center>
+                        <p></p>
+                        <p style="font-weight: normal">From the figure of the speed, we could know the car reaches the steady speed after 8*0.2 = 1.6 seconds, so I printed out the speed value to get a more precise speed:</p>
+                        <p></p>                        
+                        <center><img src=".\picture\speedvalue.png" style="box-shadow: 5px 5px 10px #888888;" alt="Description of the image" width="600" height="150"></center>
+                        <p></p> 
+                        <p style="font-weight: normal">From the data shown above, we finally calculated the steady speed as 2750 mm/s. </p>
+                        <p></p>
+                        <p style="font-weight: normal">The we calculated the 90% rise time using the figure below: </p>
+                        <p></p>
+                        <p></p>
+                        <center><img src=".\picture\risetime.png" style="box-shadow: 5px 5px 10px #888888;" alt="Description of the image" width="600" height="500"></center>
+                        <p></p>
+                        <p style="font-weight: normal">The figure above illustrates that the car reaches the 90% steady speed at 1.5s, so that the overall rise time is 90%_speed_time - start_time = 1.5-0.5 = 1s </p>
+              
+
+
+
+
+                                </div>
+                                </div>
+                                </div>
+                                </section>
+
+
+
+        <!-- TASK 2-->
+        <section class="bg-light" id="services">
+            <div class="container px-4">
+                <div class="row gx-4 justify-content-center">
+                    <div class="col-lg-8 justify-content-center">
+                        <h2>Task 2</h2>
+                        <p class="lead">Calculate mass and drag</p>
+                        <p></p>
+                        <p style="font-weight: normal">Here below shows the formulars and results I used to calculate the mass and drag: </p>
+                        <p></p>
+                        <center><img src=".\picture\m.png" style="box-shadow: 5px 5px 10px #888888;" alt="change set point" width="600" height="100"></center>
+                        <p></p>
+                        <center><img src=".\picture\d.png" style="box-shadow: 5px 5px 10px #888888;" alt="change set point" width="600" height="100"></center>
+                        <p></p>
+                        <p style="font-weight: normal">Then I used these parameters to designed the A, B and C matrix: </p>
+                        <p></p>
+                        <center><img src=".\picture\initialize_matrix.png" style="box-shadow: 5px 5px 10px #888888;" alt="change set point" width="600" height="500"></center>
+                        <p></p>
+                   
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TASK 3-->
+        <section class="bg-light" id="services">
+            <div class="container px-4">
+                <div class="row gx-4 justify-content-center">
+                    <div class="col-lg-8 justify-content-center">
+                        <h2>Task 3</h2>
+                        <p class="lead">Kalman Filter</p>
+                        <p style="font-weight: normal">Firstly I stored the data from lab 5 in a csv file using the code below: </p>
+                        <p></p>
+                        <pre>
+                            <code>
+    import csv
+    import numpy as np
+    
+    # File paths
+    time_file = 'time_values.csv'
+    distance_file = 'distance_values.csv'
+    speed_file = 'speed_values.csv'
+    ispeed_file = 'ispeed_values.csv'
+    
+    # Writing data to CSV files
+    with open(time_file, 'w', newline='') as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow(time_values)
+    
+    with open(distance_file, 'w', newline='') as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow(distance1_values)
+    
+    with open(speed_file, 'w', newline='') as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow(speed_values)
+    
+    with open(ispeed_file, 'w', newline='') as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow(ispeed_values)
+                            </code>
+                            </pre>
+                        <p style="font-weight: normal">Then I used these code to read data from CSV file: </p>
+                        <pre>
+                            <code>
+    import csv
+    import numpy as np
+    
+    # File paths
+    time_file = 'time_values.csv'
+    distance_file = 'distance_values.csv'
+    speed_file = 'speed_values.csv'
+    ispeed_file = 'ispeed_values.csv'
+    
+    # Reading data from CSV files
+    time_values = np.genfromtxt(time_file, delimiter=',')
+    distance1_values = np.genfromtxt(distance_file, delimiter=',')
+    speed_values = np.genfromtxt(speed_file, delimiter=',')
+    ispeed_values = np.genfromtxt(ispeed_file, delimiter=',')
+                            </code>
+                            </pre>
+                        <p></p>
+                        <p style="font-weight: normal">Then I implemented the Kalman filter, the code is shown below (well-annotated): </p>
+                        <p></p>
+
+
+                        <pre>
+                            <code>
+    #store the final calculated kalman filtered distance
+    kfdistance = []
+    
+    def kf(mu,sigma,u,y):
+        #mu is current state
+        #sigma is uncertainty in current state
+        #u is speed
+        #y is TOF reading
+        mu_p = Ad.dot(mu) + Bd.dot(u)   #mu_p = Ad*mu + Bd*u
+        sigma_p = Ad.dot(sigma.dot(Ad.transpose())) + sig_u
+        
+        
+        sigma_m = C.dot(sigma_p.dot(C.transpose())) + sig_z
+        #calculate kalman gain
+        kkf_gain = sigma_p.dot(C.transpose().dot(np.linalg.inv(sigma_m)))
+        y_m = y-C.dot(mu_p)
+    
+        #update state and new uncertainty in state
+        mu = mu_p + kkf_gain.dot(y_m)    
+        sigma=(np.eye(2)-kkf_gain.dot(C)).dot(sigma_p)
+            
+        return mu,sigma
+    
+    
+    #initial state
+    x = np.array([[distance1_values[0]],[0]])
+    #initial state uncertainty
+    sigma = np.array([[1^2, 0] ,[0, 20^2]])
+    
+    #Model uncertainty
+    sigma_1 = 4
+    sigma_2 = 5
+    
+    #sensor uncertainty
+    sigma_3 = 10
+    
+    #confidence in state
+    sig_u = np.array([[sigma_1**2,0],[0,sigma_2**2]]) ##We assume uncorrelated noise, and therefore a diagonal matrix works. 
+    # confidence in sensor measurement
+    sig_z = np.array([[sigma_3**2]]) 
+    
+    
+    #apply Kalman Filter for each step in time
+    for i in range(len(time_values)):
+        x, sigma = kf(x, sigma, 65/65, distance1_values[i])
+        kfdistance.append(x[0])
+    
+    
+    plt.plot(time_values, kfdistance, label = 'kfdistance')
+    plt.scatter(time_values, kfdistance)
+    plt.plot(time_values, distance1_values, label = 'TOF')
+    plt.scatter(time_values, distance1_values)
+    plt.title('Distance')
+    plt.xlabel('Time')
+    plt.ylabel('Distance(mm) or speed (mm/s)')
+    plt.legend()
+    plt.show ()
+                            </code>
+                            </pre>
+                        <p></p>
+                        <p style="font-weight: normal">Here below shows the final results.</p>
+                        <p></p>
+                        <center><img src=".\picture\kf_result.png" style="box-shadow: 5px 5px 10px #888888;" alt="change set point" width="600" height="500"></center>
+                        <p></p>
+                        <p style="font-weight: normal">The two results overlaps well, so let us compare them seperately:</p>
+                        <p></p>
+                        
+                        <center><img src=".\picture\tof.png" style="box-shadow: 5px 5px 10px #888888;" alt="change set point" width="600" height="500"></center>
+                        <p></p>
+                        <center><img src=".\picture\kfdistance.png" style="box-shadow: 5px 5px 10px #888888;" alt="change set point" width="600" height="500"></center>
+                        <p></p>                
+                        
+                        <p style="font-weight: normal">As shown below the distance calculated by kalman filter is also precises but much smoother than that of TOF.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        
+        <!-- Footer-->
+        <footer class="py-5 bg-dark">
+            <div class="container px-4"><p class="m-0 text-center text-white">Copyright &copy; Hongyu Yao 2024</p></div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+</html>

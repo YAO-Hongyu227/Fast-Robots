@@ -1,0 +1,3 @@
+minmum start-moving PWM: 45
+minimum keep-moving PWM: 40
+minimum turning PWM: 105
